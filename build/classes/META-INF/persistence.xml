@@ -7,10 +7,12 @@
 		<class>modelo.Cliente</class>
 		<class>modelo.Funcionario</class>
 		<class>modelo.Produto</class>
+			<class>modelo.Venda</class>
+		<class>modelo.ItensVenda</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/comercial" />
 			<property name="javax.persistence.jdbc.user" value="root" />
-			<property name="javax.persistence.jdbc.password" value="" />
+			<property name="javax.persistence.jdbc.password" value="mysql" />
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 
 			<property name="hibernate.hbm2ddl.auto" value="update" />
