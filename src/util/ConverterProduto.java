@@ -8,7 +8,7 @@ import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 
 import banco.DAOGenerico;
-import modelo.Funcionario;
+import modelo.Produto;
 
 @FacesConverter("converterProduto")
 public class ConverterProduto implements Converter {
@@ -17,12 +17,12 @@ public class ConverterProduto implements Converter {
     	
         if(value != null && value.trim().length() > 0) {
         	System.out.println("Dentro do IFFF");
-        DAOGenerico<Funcionario> daoProduto = new DAOGenerico<>(Funcionario.class);
+        DAOGenerico<Produto> daoProduto = new DAOGenerico<>(Produto.class);
         	try {
-                Funcionario produto = daoProduto.buscarPorId(Long.parseLong(value));
+                Produto produto = daoProduto.buscarPorId(Long.parseLong(value));
                 return produto;
             } catch(NumberFormatException e) {
-                throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ", "Funcionario Inv�lido"));
+                throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ", "Produto Inv�lido"));
             }
         }
         else {
@@ -32,7 +32,7 @@ public class ConverterProduto implements Converter {
  
     public String getAsString(FacesContext fc, UIComponent uic, Object object) {
         if(object != null) {
-            return String.valueOf(((Funcionario) object).getId());
+            return String.valueOf(((Produto) object).getId());
         }
         else {
             return null;

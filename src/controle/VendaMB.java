@@ -24,11 +24,13 @@ public class VendaMB {
 	private DAOGenerico<ItensVenda> daoItensVenda = new DAOGenerico<>(ItensVenda.class);
 
 	public void adicionarItem() {
-		if (itensVenda.getProduto() != null) {
+		System.out.println("DEntro do Método");
+		if (itensVenda.getProduto() != null) {			
 			itensVenda.setValorUnitario(itensVenda.getProduto().getValorVenda());
 			itensVenda.setValotTotal(itensVenda.getQuantidade() * itensVenda.getValorUnitario());
 			listaItensVenda.add(itensVenda);
 			itensVenda = new ItensVenda();
+			System.out.println("QTDLista: "+listaItensVenda.size());
 		}
 	}
 
@@ -50,6 +52,38 @@ public class VendaMB {
 		venda = new Venda();
 		listaItensVenda = new ArrayList<>();
 		itensVenda = new ItensVenda();
+	}
+
+	public Venda getVenda() {
+		return venda;
+	}
+
+	public void setVenda(Venda venda) {
+		this.venda = venda;
+	}
+
+	public ItensVenda getItensVenda() {
+		return itensVenda;
+	}
+
+	public void setItensVenda(ItensVenda itensVenda) {
+		this.itensVenda = itensVenda;
+	}
+
+	public List<ItensVenda> getListaItensVenda() {
+		return listaItensVenda;
+	}
+
+	public void setListaItensVenda(List<ItensVenda> listaItensVenda) {
+		this.listaItensVenda = listaItensVenda;
+	}
+
+	public List<Venda> getListaVendas() {
+		return listaVendas;
+	}
+
+	public void setListaVendas(List<Venda> listaVendas) {
+		this.listaVendas = listaVendas;
 	}
 
 }

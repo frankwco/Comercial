@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<body>
+	<a href="cadastroEstados.jsf">Estados</a>&nbsp;&nbsp;
+	<a href="cadastroCidades.jsf">Cidades</a>&nbsp;&nbsp;
+	<a href="cadastroClientes.jsf">Clientes</a>&nbsp;&nbsp;
+	<a href="cadastroFuncionarios.jsf">Funcionários</a>&nbsp;&nbsp;
+	<a href="cadastroProdutos.jsf">Produtos</a>&nbsp;&nbsp;
+	<hr />
+	<br />
+<!-- 	<p:messages id="mensagem"/>  -->
+<p:growl id="mensagem"/>
+	<h:form id="formularioCabecalhoVenda">
+		<h:panelGrid columns="4">
+			<h:outputText value="Cliente" />
+			<p:selectOneMenu value="#{vendaMB.venda.cliente}"
+				converter="converterCliente" filter="true"
+				filterMatchMode="startsWith">
+				<f:selectItems value="#{clienteMB.clientes}" var="obj"
+					itemLabel="#{obj.nome}" itemValue="#{obj}" />
+			</p:selectOneMenu>
+			<h:outputText value="Data:" />
+			<p:calendar pattern="dd/MM/yyyy" 
+						value="#{vendaMB.venda.dataVenda}" />
+		</h:panelGrid>
+		<h:panelGrid columns="2">
+			<h:outputText value="Vendedor" />
+			<p:selectOneMenu value="#{vendaMB.venda.vendedor}"
+				converter="converterFuncionario" filter="true"
+				filterMatchMode="startsWith">
+				<f:selectItems value="#{funcionarioMB.funcionarios}" 
+								var="obj"
+								itemLabel="#{obj.nome}" 
+								itemValue="#{obj}" />			
+			</p:selectOneMenu>
+			<h:outputText value="Observação" />
+			<p:inputText value="#{vendaMB.venda.observacao}"/>
+		</h:panelGrid>
+<!-- 		INÍCIO ITENS DE VENDA -->
+		<h:panelGrid columns="5">
+			<h:outputText value="Produto" />
+			<p:selectOneMenu value="#{vendaMB.itensVenda.produto}"
+				converter="converterProduto" filter="true"
+				filterMatchMode="startsWith">
+				<f:selectItems value="#{produtoMB.produtos}" 
+								var="obj"
+								itemLabel="#{obj.descricao}" 
+								itemValue="#{obj}" />			
+			</p:selectOneMenu>
+			<h:outputText value="Quantidade:" />
+			<p:inputText id="inputQtd" value="#{vendaMB.itensVenda.quantidade}"/>
+			<p:commandButton value="OK" update="tabelaItensVenda,inputQtd"
+					actionListener="#{vendaMB.adicionarItem()}"/>
+		</h:panelGrid>
+<!-- 		FIM DO ITENS DE VENDA -->
+<p:dataTable id="tabelaItensVenda" value="#{vendaMB.listaItensVenda}" var="obj">
+	<p:column headerText="Produto">
+		<h:outputText value="#{obj.produto.descricao}" />
+	</p:column>
+		<p:column headerText="Quantidade">
+		<h:outputText value="#{obj.quantidade}" />
+	</p:column>		
+		<p:column headerText="Valor Unitário">
+		<h:outputText value="#{obj.valorUnitario}" />
+	</p:column>		
+		<p:column headerText="Valor Total">
+		<h:outputText value="#{obj.valotTotal}" />
+	</p:column>
+</p:dataTable>
+<p:commandButton value="Finalizar Venda" 
+	actionListener="#{vendaMB.finalizarVenda()}" 
+	update="mensagem"/> 
+	</h:form>
+	<br />
+	
+</body>
+</html>
