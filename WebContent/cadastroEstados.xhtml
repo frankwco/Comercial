@@ -7,26 +7,16 @@
 
 <h:head></h:head>
 <body>
-<a href="cadastroEstados.jsf">Estados</a>&nbsp;&nbsp;
+	<a href="cadastroEstados.jsf">Estados</a>&nbsp;&nbsp;
 	<a href="cadastroCidades.jsf">Cidades</a>&nbsp;&nbsp;
 	<a href="cadastroClientes.jsf">Clientes</a>&nbsp;&nbsp;
 	<a href="cadastroFuncionarios.jsf">Funcionários</a>&nbsp;&nbsp;
 	<a href="cadastroProdutos.jsf">Produtos</a>&nbsp;&nbsp;
-	<hr/><br/>
-	<h:form id="formularioCadastroEstados">
-		<h:panelGrid columns="3">
-			<h:outputText value="Nome" />
-			<p:inputText id="nomeEstado" required="true"
-				requiredMessage="Preencher o Nome" value="#{estadoMB.estado.nome}" />
-			<p:message for="nomeEstado" />
-			<h:outputText value="Sigla" />
-			<p:inputText id="siglaEstado" required="true"
-				requiredMessage="Preencher a Sigla" value="#{estadoMB.estado.sigla}" />
-			<p:message for="siglaEstado" />
-			<p:commandButton update="@form, formTabelaEstados" value="Cadastrar"
-				actionListener="#{estadoMB.inserir()}" />
-		</h:panelGrid>
-	</h:form>
+	<hr />
+	<br />
+	<p:commandButton value="Novo Estado"
+		oncomplete="PF('dialogEstado').show();"
+		update="formularioCadastroEstados" />
 	<br />
 	<h:form id="formTabelaEstados">
 		<p:dataTable value="#{estadoMB.estados}" var="est">
@@ -40,7 +30,9 @@
 				<h:outputText value="#{est.sigla}" />
 			</p:column>
 			<p:column headerText="Opções">
-				<p:commandButton value="Alterar" update="formularioCadastroEstados">
+				<p:commandButton value="Alterar"
+					oncomplete="PF('dialogEstado').show();"
+					update="formularioCadastroEstados">
 					<f:setPropertyActionListener value="#{est}"
 						target="#{estadoMB.estado}" />
 				</p:commandButton>
@@ -59,5 +51,32 @@
 				styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 		</p:confirmDialog>
 	</h:form>
+
+	<p:dialog header="Formulário Cadastro Estado" widgetVar="dialogEstado"
+		modal="true" minHeight="40">
+		<h:form id="formularioCadastroEstados">
+			<h:panelGrid columns="3">
+				<h:outputText value="Nome" />
+				<p:inputText id="nomeEstado" required="true"
+					requiredMessage="Preencher o Nome" value="#{estadoMB.estado.nome}" />
+				<p:message for="nomeEstado" />
+				<h:outputText value="Sigla" />
+				<p:inputText id="siglaEstado" required="true"
+					requiredMessage="Preencher a Sigla"
+					value="#{estadoMB.estado.sigla}" />
+				<p:message for="siglaEstado" />
+				<p:commandButton update="@form, formTabelaEstados" value="Cadastrar"
+					oncomplete="validarFormulario(xhr, status, args)"
+					actionListener="#{estadoMB.inserir()}" />
+			</h:panelGrid>
+		</h:form>
+	</p:dialog>
+		<script>	
+			function validarFormulario(xhr, status, args) {        
+		        if (!args.validationFailed) {                    
+		        	PF('dialogEstado').hide();                                      
+		        }         
+			}
+		</script>
 </body>
 </html>
