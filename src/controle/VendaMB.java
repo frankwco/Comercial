@@ -23,25 +23,38 @@ public class VendaMB {
 	private DAOGenerico<Venda> daoVenda = new DAOGenerico<>(Venda.class);
 	private DAOGenerico<ItensVenda> daoItensVenda = new DAOGenerico<>(ItensVenda.class);
 
+	public VendaMB() {
+		listaVendas = daoVenda.buscarTodos();
+	}
+
 	public void adicionarItem() {
-		System.out.println("DEntro do Método");
-		if (itensVenda.getProduto() != null) {			
+		System.out.println("Dentro do Método");
+		if (itensVenda.getProduto() != null) {
 			itensVenda.setValorUnitario(itensVenda.getProduto().getValorVenda());
 			itensVenda.setValotTotal(itensVenda.getQuantidade() * itensVenda.getValorUnitario());
 			listaItensVenda.add(itensVenda);
 			itensVenda = new ItensVenda();
-			System.out.println("QTDLista: "+listaItensVenda.size());
+			System.out.println("QTDLista: " + listaItensVenda.size());
 		}
 	}
 
 	public void finalizarVenda() {
+		Double valorFinalVenda = 0.0;
 		daoVenda.salvar(venda);
 		for (ItensVenda it : listaItensVenda) {
+			valorFinalVenda += it.getValotTotal();
 			it.setVenda(venda);
 			daoItensVenda.salvar(it);
 		}
+		venda.setValorTotalVenda(valorFinalVenda);
+		daoVenda.alterar(venda);
+
+		listaVendas = daoVenda.buscarTodos();// Instancia novamente para preencher a lista
+		System.out.println("Tamanho da lista" + listaVendas.size());
 		FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage(FacesMessage.SEVERITY_INFO, "Venda Realizada Com Sucesso!!", ""));
+
+		novaVenda();
 	}
 
 	public void removerItem(ItensVenda itemRemover) {
