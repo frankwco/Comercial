@@ -27,12 +27,37 @@ public class Funcionario implements Serializable {
 	
 	private Double porcentagemComissaoVenda;
 	
+	private String perfil;
+	
+	private boolean enable = true;	
 
 	public Funcionario() {
 		super();
+	}	
+
+	public boolean isEnable() {
+		return enable;
 	}
 
-	
+
+
+	public void setEnable(boolean enable) {
+		this.enable = enable;
+	}
+
+
+
+	public String getPerfil() {
+		return perfil;
+	}
+
+
+
+	public void setPerfil(String perfil) {
+		this.perfil = perfil;
+	}
+
+
 
 	@Override
 	public int hashCode() {

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<body>
+
+	<h:outputText value="E-mail ou senha incorretos"
+		rendered="#{param.error==true}" />
+
+	<h:panelGrid columns="1" styleClass="col-md-12  col-xs-12">
+		<form id="frmLogin" action="j_spring_security_check" method="post">
+			<label>E-mail</label>
+			<p:inputText required="true" id="j_username"
+				styleClass="col-md-12 col-xs-12" />
+
+
+			<label>Senha</label>
+			<p:password required="true" id="j_password"
+				styleClass="col-md-12 col-xs-12" />
+
+			<h:commandButton value="Entrar"
+				styleClass="ui-priority-primary btn btn-block" />
+
+			<a href="recuperar-senha.jsf">Esqueceu a senha?</a>
+		</form>
+	</h:panelGrid>
+
+</body>
+</html>
