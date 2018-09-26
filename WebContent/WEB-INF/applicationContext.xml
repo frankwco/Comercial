@@ -16,6 +16,8 @@
 			access="hasRole('Administrador') or hasRole('Vendedor')" />
 		<intercept-url pattern="/cadastroProdutos.jsf"
 			access="hasRole('Administrador') or hasRole('Vendedor')" />
+			<intercept-url pattern="/inicialRestrita.jsf"
+			access="hasRole('Administrador') or hasRole('Vendedor')" />
 
 		<access-denied-handler error-page="/403.jsf" />
 		<form-login login-page="/login.jsf"

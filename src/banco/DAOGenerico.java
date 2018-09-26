@@ -45,7 +45,7 @@ public class DAOGenerico<T> {
 
 	public boolean excluir(Long id) {
 		entityManager = Fabrica.get().createEntityManager();
-		try {			
+		try {
 			T objeto = entityManager.find(classe, id);
 			if (objeto != null) {
 				entityManager.getTransaction().begin();
@@ -93,12 +93,13 @@ public class DAOGenerico<T> {
 		Query query = null;
 		try {
 			query = entityManager.createQuery("from " + classe.getSimpleName() + " where " + consulta);
+			return query.getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			entityManager.close();
 		}
-		return query.getResultList();
+		return null;
 	}
 
 }
