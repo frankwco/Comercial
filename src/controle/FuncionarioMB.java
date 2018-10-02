@@ -15,8 +15,8 @@ public class FuncionarioMB {
 	private Funcionario funcionario = new Funcionario();
 	private List<Funcionario> funcionarios = new ArrayList<>();
 	private DAOGenerico<Funcionario> dao = new DAOGenerico<>(Funcionario.class);
-	
-	public FuncionarioMB(){
+
+	public FuncionarioMB() {
 		funcionarios = dao.buscarTodos();
 	}
 
@@ -29,8 +29,8 @@ public class FuncionarioMB {
 		funcionario = new Funcionario();
 		funcionarios = dao.buscarTodos();
 	}
-	
-	public void excluir(Long id){
+
+	public void excluir(Long id) {
 		dao.excluir(id);
 		funcionarios = dao.buscarTodos();
 	}
@@ -50,8 +50,5 @@ public class FuncionarioMB {
 	public void setFuncionarios(List<Funcionario> funcionarios) {
 		this.funcionarios = funcionarios;
 	}
-
-	
-	
 
 }

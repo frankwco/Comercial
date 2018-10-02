@@ -29,7 +29,8 @@
 				<p:message for="senhaFuncionario" />
 
 				<h:outputText value="Procentagem Venda" />
-				<p:inputText id="porcentagemFuncionario" required="true"
+				<p:inputText validator="validarComissaoFuncionario"
+					id="porcentagemFuncionario" required="true"
 					requiredMessage="Preencher a Porcentagem Venda"
 					value="#{funcionarioMB.funcionario.porcentagemComissaoVenda}" />
 				<p:message for="porcentagemFuncionario" />
@@ -48,10 +49,8 @@
 				<p:selectOneMenu id="permissao"
 					value="#{funcionarioMB.funcionario.perfil}" filter="true"
 					filterMatchMode="startsWith">
-					<f:selectItem itemLabel="Administrador" 
-						itemValue="Administrador" />
-					<f:selectItem itemLabel="Vendedor" 
-						itemValue="Vendedor" />
+					<f:selectItem itemLabel="Administrador" itemValue="Administrador" />
+					<f:selectItem itemLabel="Vendedor" itemValue="Vendedor" />
 				</p:selectOneMenu>
 				<p:message for="permissao" />
 
