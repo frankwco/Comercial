@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../template.xhtml">
+	<ui:define name="corpo">
+
+		<h:form id="formularioCadastroCliente">
+
+			<h:panelGrid columns="3">
+				<h:outputText value="Nome" />
+				<p:inputText id="nomeCliente" required="true"
+					requiredMessage="Preencher o Nome"
+					value="#{clienteMB.cliente.nome}" />
+				<p:message for="nomeCliente" />
+
+				<h:outputText value="Endereço" />
+				<p:inputText id="enderecoCliente" required="true"
+					requiredMessage="Preencher o Endereço"
+					value="#{clienteMB.cliente.endereco}" />
+				<p:message for="enderecoCliente" />
+
+				<h:outputText value="CPF" />
+				<p:inputText validator="validacaoCPF" 				
+					id="cpfCliente"
+					required="true" requiredMessage="Preencher o CPF"
+					value="#{clienteMB.cliente.cpf}" />
+				<p:message for="cpfCliente" />
+
+				<h:outputText value="Limite Credito" />
+				<p:inputText id="limiteCreditCliente" required="true"
+					requiredMessage="Preencher o Limite Crédito"
+					value="#{clienteMB.cliente.limiteCredito}" />
+				<p:message for="limiteCreditCliente" />
+
+				<h:outputText value="Cidade" />
+				<p:selectOneMenu id="cidade" value="#{clienteMB.cliente.cidade}"
+					converter="converterCidade" filter="true"
+					filterMatchMode="startsWith">
+					<f:selectItems value="#{cidadeMB.cidades}" var="cid"
+						itemLabel="#{cid.nome}" itemValue="#{cid}" />
+				</p:selectOneMenu>
+				<p:message for="cidade" />
+
+				<p:commandButton update="@form, formTabelaClientes"
+					value="Cadastrar" actionListener="#{clienteMB.inserir()}" />
+			</h:panelGrid>
+		</h:form>
+		<br />
+		<h:form id="formTabelaClientes">
+			<p:dataTable value="#{clienteMB.clientes}" var="cid">
+				<p:column headerText="ID">
+					<h:outputText value="#{cid.id}" />
+				</p:column>
+				<p:column headerText="Nome">
+					<h:outputText value="#{cid.nome}" />
+				</p:column>
+				<p:column headerText="Estado">
+					<h:outputText value="#{cid.cidade.nome}" />
+				</p:column>
+
+				<p:column headerText="Opções">
+					<p:commandButton value="Alterar" update="formularioCadastroCliente">
+						<f:setPropertyActionListener value="#{cid}"
+							target="#{clienteMB.cliente}" />
+					</p:commandButton>
+					<p:commandButton value="Excluir"
+						actionListener="#{clienteMB.excluir(cid.id)}" update="@form">
+						<p:confirm header="Confirmação" message="Deseja excluir??"
+							icon="ui-icon-alert" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
