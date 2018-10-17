@@ -12,6 +12,13 @@
 			oncomplete="PF('dialogEstado').show();"
 			update="formularioCadastroEstados" />
 		<br />
+		
+		<h:form>
+			<p:commandButton value="Relatório" 
+			actionListener="#{estadoMB.chamarRelatorio()}"
+			ajax="false"/>
+		</h:form>
+		
 		<h:form id="formTabelaEstados">
 			<p:dataTable value="#{estadoMB.estados}" var="est">
 				<p:column headerText="ID">
