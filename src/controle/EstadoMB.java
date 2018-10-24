@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,16 +34,25 @@ public class EstadoMB {
 	private Estado estado = new Estado();
 	private List<Estado> estados = new ArrayList<>();
 	private DAOGenerico<Estado> dao = new DAOGenerico<>(Estado.class);
+	
 
 	public EstadoMB() {
 		estados = dao.buscarTodos();
 	}
 
 	public void chamarRelatorio() {
-		String consulta = "select *from Estado";
+		String consulta = "SELECT *from Estado";
 		HashMap param = new HashMap<>();
 		param.put("TITULO_RELATORIO", "Relatório de Estados");
 		ChamarRelatorio.relatorio(consulta, "relEstado", 
+				"relatorioEstado", param);
+	}
+	
+	public void chamarRelatorioConexao() {
+		//String consulta = "SELECT *from Estado";
+		HashMap param = new HashMap<>();
+		param.put("TITULO_RELATORIO", "Relatório de Estados");
+		ChamarRelatorio.relatorioConexao("relEstado", 
 				"relatorioEstado", param);
 	}
 
