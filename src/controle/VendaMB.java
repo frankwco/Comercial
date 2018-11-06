@@ -9,9 +9,11 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import banco.DAOGenerico;
+import modelo.Funcionario;
 import modelo.ItensVenda;
 import modelo.Produto;
 import modelo.Venda;
+import util.RetornaUsuarioLogado;
 
 @ManagedBean
 @ViewScoped
@@ -24,7 +26,17 @@ public class VendaMB {
 	private DAOGenerico<ItensVenda> daoItensVenda = new DAOGenerico<>(ItensVenda.class);
 
 	public VendaMB() {
-		listaVendas = daoVenda.buscarTodos();
+		//listaVendas = daoVenda.buscarTodos();
+		buscarVendas();
+	}
+	
+	private void buscarVendas() {
+		Funcionario logado = RetornaUsuarioLogado.get();
+		if(logado.getPerfil().equals("Administrador")) {
+			listaVendas = daoVenda.buscarTodos();
+		}else {
+			listaVendas = daoVenda.buscarCondicao("vendedor.id="+logado.getId());
+		}
 	}
 
 	public void adicionarItem() {
@@ -49,7 +61,8 @@ public class VendaMB {
 		venda.setValorTotalVenda(valorFinalVenda);
 		daoVenda.alterar(venda);
 
-		listaVendas = daoVenda.buscarTodos();// Instancia novamente para preencher a lista
+		//listaVendas = daoVenda.buscarTodos();// Instancia novamente para preencher a lista
+		buscarVendas();
 		System.out.println("Tamanho da lista" + listaVendas.size());
 		FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage(FacesMessage.SEVERITY_INFO, "Venda Realizada Com Sucesso!!", ""));

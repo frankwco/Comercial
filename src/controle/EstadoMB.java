@@ -34,7 +34,7 @@ public class EstadoMB {
 	private Estado estado = new Estado();
 	private List<Estado> estados = new ArrayList<>();
 	private DAOGenerico<Estado> dao = new DAOGenerico<>(Estado.class);
-	
+	private String nomeEstado="";
 
 	public EstadoMB() {
 		estados = dao.buscarTodos();
@@ -51,8 +51,8 @@ public class EstadoMB {
 	public void chamarRelatorioConexao() {
 		//String consulta = "SELECT *from Estado";
 		HashMap param = new HashMap<>();
-		param.put("TITULO_RELATORIO", "Relatório de Estados");
-		ChamarRelatorio.relatorioConexao("relEstado", 
+		param.put("NOME_ESTADO", nomeEstado);
+		ChamarRelatorio.relatorioConexao("relatorio_estados", 
 				"relatorioEstado", param);
 	}
 
@@ -86,5 +86,15 @@ public class EstadoMB {
 	public void setEstados(List<Estado> estados) {
 		this.estados = estados;
 	}
+
+	public String getNomeEstado() {
+		return nomeEstado;
+	}
+
+	public void setNomeEstado(String nomeEstado) {
+		this.nomeEstado = nomeEstado;
+	}
+	
+	
 
 }
