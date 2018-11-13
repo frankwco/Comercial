@@ -41,19 +41,19 @@ public class EstadoMB {
 	}
 
 	public void chamarRelatorio() {
-		String consulta = "SELECT *from Estado";
+		String consulta = "SELECT *from Estados";
 		HashMap param = new HashMap<>();
-		param.put("TITULO_RELATORIO", "RelatÃ³rio de Estados");
-		ChamarRelatorio.relatorio(consulta, "relEstado", 
+		param.put("TITULO_RELATORIOs", "Relatório de Estados");
+		ChamarRelatorio.relatorio(consulta, "relatorioEstado", 
 				"relatorioEstado", param);
 	}
 	
 	public void chamarRelatorioConexao() {
 		//String consulta = "SELECT *from Estado";
 		HashMap param = new HashMap<>();
-		param.put("NOME_ESTADO", nomeEstado);
+		param.put("NOME_ESTADOs", nomeEstado);
 		ChamarRelatorio.relatorioConexao("relatorio_estados", 
-				"relatorioEstado", param);
+				"relatorio_estados", param);
 	}
 
 	public void inserir() {
